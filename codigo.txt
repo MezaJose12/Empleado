@@ -1,0 +1,83 @@
+// Clase base Empleado
+class Empleado {
+    protected String nombre;
+    protected int edad;
+    protected double salarioBase;
+
+    public Empleado(String nombre, int edad, double salarioBase) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.salarioBase = salarioBase;
+    }
+
+    public double calcularSalario() {
+        return salarioBase;
+    }
+
+    public void mostrarInformacion() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Edad: " + edad);
+        System.out.println("Salario Base: $" + salarioBase);
+    }
+}
+
+// Clase derivada EmpleadoTiempoCompleto
+class EmpleadoTiempoCompleto extends Empleado {
+    private double bonificacion;
+
+    public EmpleadoTiempoCompleto(String nombre, int edad, double salarioBase, double bonificacion) {
+        super(nombre, edad, salarioBase);
+        this.bonificacion = bonificacion;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return salarioBase + bonificacion;
+    }
+
+    @Override
+    public void mostrarInformacion() {
+        super.mostrarInformacion();
+        System.out.println("Bonificación: $" + bonificacion);
+        System.out.println("Salario Total: $" + calcularSalario());
+    }
+}
+
+// Clase derivada EmpleadoPorHoras
+class EmpleadoPorHoras extends Empleado {
+    private int horasTrabajadas;
+    private double tarifaPorHora;
+
+    public EmpleadoPorHoras(String nombre, int edad, double tarifaPorHora, int horasTrabajadas) {
+        super(nombre, edad, 0); // El salario base no se usa para empleados por horas
+        this.tarifaPorHora = tarifaPorHora;
+        this.horasTrabajadas = horasTrabajadas;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return tarifaPorHora * horasTrabajadas;
+    }
+
+    @Override
+    public void mostrarInformacion() {
+        super.mostrarInformacion();
+        System.out.println("Tarifa por Hora: $" + tarifaPorHora);
+        System.out.println("Horas Trabajadas: " + horasTrabajadas);
+        System.out.println("Salario Total: $" + calcularSalario());
+    }
+}
+
+// Clase de prueba
+public class Main {
+    public static void main(String[] args) {
+        EmpleadoTiempoCompleto emp1 = new EmpleadoTiempoCompleto("Juan", 30, 3000, 500);
+        EmpleadoPorHoras emp2 = new EmpleadoPorHoras("Ana", 25, 20, 120);
+
+        System.out.println("Información del Empleado a Tiempo Completo:");
+        emp1.mostrarInformacion();
+
+        System.out.println("\nInformación del Empleado por Horas:");
+        emp2.mostrarInformacion();
+    }
+}
